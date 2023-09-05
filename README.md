@@ -2,50 +2,49 @@
 
 ssh -i "ameyakey.pem" ec2-user@ec2-3-145-20-135.us-east-2.compute.amazonaws.com
 
+## login to the terminal create 4 terminals 
+1. Zookeeper terminal
+2. Kafka Cluster
+3. Producer
+4. Consumer
 
-wget https://downloads.apache.org/kafka/3.3.1/kafka_2.12-3.3.1.tgz
-tar -xvf kafka_2.12-3.3.1.tgz
+### Steps 
+1. Create EC2 instance on AWS, copy the public IP address, add security group and allow access from an IP address 
 
+2. Install kafka on your EC2 instance :-
+   wget https://downloads.apache.org/kafka/3.5.0/kafka_2.12-3.5.0.tgz
+   tar -xvf kafka_2.12-3.5.0.tgz
+   cd kafka_2.12-3.5.0
 
------------------------
-java -version
-sudo yum install java-1.8.0-openjdk
-java -version
-cd kafka_2.12-3.3.1
+3. Install Java on the Ec2 Instance :- 
+    sudo yum install java
+   
+4. Now add the public IPv4 address from your EC2 instance to the zookeeper
+   sudo nano config/server.properties - change ADVERTISED_LISTENERS to public ip of the EC2 instance  
+  
+wget https://downloads.apache.org/kafka/3.5.1/kafka_2.12-3.5.1.tgz
+tar -xvf kafka_2.12-3.5.1.tgz
 
-Start Zoo-keeper:
+A) 1st Terminal => Start Zoo-keeper:
 -------------------------------
 bin/zookeeper-server-start.sh config/zookeeper.properties
 
-Open another window to start kafka
-But first ssh to to your ec2 machine as done above
-
-
-Start Kafka-server:
-----------------------------------------
-Duplicate the session & enter in a new console --
+B) 2nd Terminal => Start Kafka-server:
+-------------------------------
 export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"
-cd kafka_2.12-3.3.1
+cd kafka_2.12-3.5.1 => add extra space for kafka server
+
 bin/kafka-server-start.sh config/server.properties
 
-It is pointing to private server , change server.properties so that it can run in public IP 
+C) 3rd Terminal => Create the topic:
+-------------------------------
+bin/kafka-topics.sh --create --topic demo_test --bootstrap-server {public EC2 IP address}:9092 --replication-factor 1 --partitions 1
 
-To do this , you can follow any of the 2 approaches shared belwo --
-Do a "sudo nano config/server.properties" - change ADVERTISED_LISTENERS to public ip of the EC2 instance
+D) 3th Terminal => Start Producer: (This is done in the same terminal as creating a topic)
+-------------------------------
+bin/kafka-console-producer.sh --topic demo_test --bootstrap-server {public EC2 IP address}:9092
 
 
-Create the topic:
------------------------------
-Duplicate the session & enter in a new console --
-cd kafka_2.12-3.3.1
-bin/kafka-topics.sh --create --topic demo_testing2 --bootstrap-server {Put the Public IP of your EC2 Instance:9092} --replication-factor 1 --partitions 1
-
-Start Producer:
---------------------------
-bin/kafka-console-producer.sh --topic demo_testing2 --bootstrap-server {Put the Public IP of your EC2 Instance:9092} 
-
-Start Consumer:
+E) 4th Terminal => Start Consumer:
 -------------------------
-Duplicate the session & enter in a new console --
-cd kafka_2.12-3.3.1
-bin/kafka-console-consumer.sh --topic demo_testing2 --bootstrap-server {Put the Public IP of your EC2 Instance:9092}
+bin/kafka-console-consumer.sh --topic demo_test --bootstrap-server {public EC2 IP address}:9092

@@ -4,13 +4,14 @@ ssh -i "ameyakey.pem" ec2-user@ec2-3-145-20-135.us-east-2.compute.amazonaws.com
 
 3.145.20.135
 
-## login to the terminal create 4 terminals 
+#### login to the terminal create 4 terminals 
 1. Zookeeper terminal
 2. Kafka Cluster
 3. Producer
 4. Consumer
 
-### Steps 
+#### Steps 
+
 1. Create EC2 instance on AWS, copy the public IP address, add security group and allow access from an IP address 
 
 2. Install kafka on your EC2 instance :-

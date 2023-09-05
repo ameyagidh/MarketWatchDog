@@ -32,12 +32,12 @@ Access Key AKIAWIOX6JNDR5QPAFGD
 wget https://downloads.apache.org/kafka/3.5.1/kafka_2.12-3.5.1.tgz
 tar -xvf kafka_2.12-3.5.1.tgz
 
-##### Step A: Start Zookeeper (1st Terminal) :
-
+#### Step A: Start Zookeeper (1st Terminal) :
+-------------------------
 bin/zookeeper-server-start.sh config/zookeeper.properties
 
-##### Step B: Start Kafka-server (2nd Terminal):
-
+#### Step B: Start Kafka-server (2nd Terminal):
+-------------------------
 export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"
 cd kafka_2.12-3.5.1 => add extra space for kafka server
 

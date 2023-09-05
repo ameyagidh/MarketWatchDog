@@ -32,26 +32,24 @@ Access Key AKIAWIOX6JNDR5QPAFGD
 wget https://downloads.apache.org/kafka/3.5.1/kafka_2.12-3.5.1.tgz
 tar -xvf kafka_2.12-3.5.1.tgz
 
-A) 1st Terminal => Start Zoo-keeper:
--------------------------------
+##### Step A: Start Zookeeper (1st Terminal) :
+
 bin/zookeeper-server-start.sh config/zookeeper.properties
 
-B) 2nd Terminal => Start Kafka-server:
--------------------------------
+##### Step B: Start Kafka-server (2nd Terminal):
+
 export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"
 cd kafka_2.12-3.5.1 => add extra space for kafka server
 
 bin/kafka-server-start.sh config/server.properties
 
-C) 3rd Terminal => Create the topic:
--------------------------------
+ => Create the topic:
 bin/kafka-topics.sh --create --topic demo_test --bootstrap-server {public EC2 IP address}:9092 --replication-factor 1 --partitions 1
 
-D) 3th Terminal => Start Producer: (This is done in the same terminal as creating a topic)
--------------------------------
+##### Step C: Start Producer (3rd Terminal) (This is done in the same terminal as creating a topic):
 bin/kafka-console-producer.sh --topic demo_test --bootstrap-server {public EC2 IP address}:9092
 
 
-E) 4th Terminal => Start Consumer:
+##### Step D: Start Consumer (4th Terminal):
 -------------------------
 bin/kafka-console-consumer.sh --topic demo_test --bootstrap-server {public EC2 IP address}:9092

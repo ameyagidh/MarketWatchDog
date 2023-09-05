@@ -2,6 +2,8 @@
 
 ssh -i "ameyakey.pem" ec2-user@ec2-3-145-20-135.us-east-2.compute.amazonaws.com
 
+3.145.20.135
+
 ## login to the terminal create 4 terminals 
 1. Zookeeper terminal
 2. Kafka Cluster

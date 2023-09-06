@@ -50,7 +50,7 @@ bin/kafka-console-producer.sh --topic demo_test --bootstrap-server {public EC2 I
 
 bin/kafka-console-consumer.sh --topic demo_test --bootstrap-server {public EC2 IP address}:9092
 
-
+-------------------------
 ssh -i "ameyakey.pem" ec2-user@ec2-3-145-20-135.us-east-2.compute.amazonaws.com
 
 3.145.20.135

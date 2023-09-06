@@ -1,13 +1,5 @@
 # MarketWatchDog
 
-ssh -i "ameyakey.pem" ec2-user@ec2-3-145-20-135.us-east-2.compute.amazonaws.com
-
-3.145.20.135
-
-Secret Access Key IyJCDz+MOeUEfK0RALuIbOiuCG3ZecZ6SRqlbXWj
-
-Access Key AKIAWIOX6JNDR5QPAFGD
-
 #### login to the terminal create 4 terminals 
 1. Zookeeper terminal
 2. Kafka Cluster
@@ -32,11 +24,11 @@ Access Key AKIAWIOX6JNDR5QPAFGD
 wget https://downloads.apache.org/kafka/3.5.1/kafka_2.12-3.5.1.tgz
 tar -xvf kafka_2.12-3.5.1.tgz
 
-#### Step A: Start Zookeeper (1st Terminal) :
+### Step A: Start Zookeeper (1st Terminal) :
 -------------------------
 bin/zookeeper-server-start.sh config/zookeeper.properties
 
-#### Step B: Start Kafka-server (2nd Terminal):
+### Step B: Start Kafka-server (2nd Terminal):
 -------------------------
 export KAFKA_HEAP_OPTS="-Xmx256M -Xms128M"
 cd kafka_2.12-3.5.1 => add extra space for kafka server
@@ -46,11 +38,16 @@ bin/kafka-server-start.sh config/server.properties
  => Create the topic:
 bin/kafka-topics.sh --create --topic demo_test --bootstrap-server {public EC2 IP address}:9092 --replication-factor 1 --partitions 1
 
-#### Step C: Start Producer (3rd Terminal) (This is done in the same terminal as creating a topic):
+### Step C: Start Producer (3rd Terminal) (This is done in the same terminal as creating a topic):
 -------------------------
 bin/kafka-console-producer.sh --topic demo_test --bootstrap-server {public EC2 IP address}:9092
 
 
-#### Step D: Start Consumer (4th Terminal):
+### Step D: Start Consumer (4th Terminal):
 -------------------------
 bin/kafka-console-consumer.sh --topic demo_test --bootstrap-server {public EC2 IP address}:9092
+
+
+ssh -i "ameyakey.pem" ec2-user@ec2-3-145-20-135.us-east-2.compute.amazonaws.com
+
+3.145.20.135
